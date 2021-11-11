@@ -1,32 +1,32 @@
-const getPosts = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
   try {
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
-const createPosts = async (req, res, next) => {
+const createUsers = async (req, res, next) => {
   try {
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
-const getpostsById = async (req, res, next) => {
+const getUsersById = async (req, res, next) => {
   try {
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
-const updatePostsById = async (req, res, next) => {
+const updateUsersById = async (req, res, next) => {
   try {
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
-const deletePostsById = async (req, res, next) => {
+const deleteUsersById = async (req, res, next) => {
   try {
   } catch (error) {
     console.log(error);
@@ -34,10 +34,10 @@ const deletePostsById = async (req, res, next) => {
   }
 };
 const handler = {
-  getPosts,
-  createPosts,
-  getpostsById,
-  updatePostsById,
-  deletePostsById,
+  getUsers,
+  createUsers,
+  getUsersById,
+  updateUsersById,
+  deleteUsersById,
 };
 export default handler;
