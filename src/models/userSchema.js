@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { isEmail } from "validator";
+const { isEmail } = validator;
 const { Schema, model } = mongoose;
 
 const userSchema = new Schema(

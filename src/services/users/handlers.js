@@ -1,3 +1,5 @@
+import express from "express";
+import UserModel from "../../models/userSchema.js";
 const getUsers = async (req, res, next) => {
   try {
   } catch (error) {
@@ -7,6 +9,9 @@ const getUsers = async (req, res, next) => {
 };
 const createUsers = async (req, res, next) => {
   try {
+    const newUser = new UserModel(req.body);
+    const { _id } = await newUser.save();
+    res.status(201).send({ _id });
   } catch (error) {
     console.log(error);
     next(error);

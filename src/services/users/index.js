@@ -23,7 +23,8 @@ router
   .delete(Handler.deleteUsersById);
 
 // upload post Image
-r; /* outer.put(
+/* 
+router.put(
   "/:postId/uploadImage",
   multer({ storage: cloudinaryStorage }).single("cover"),
   Handler.uploadImage

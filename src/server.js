@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import postsRouter from "./services/posts/index.js";
+import usersRouter from "./services/users/index.js";
 
 import {
   notFoundHandler,
@@ -14,7 +15,7 @@ import {
 const server = express();
 const port = process.env.PORT || 3001;
 
-// ******************************** MIDDLEWARES ********************************
+// ******************************** MIDDLEWARE ********************************
 
 server.use(cors());
 server.use(express.json());
@@ -22,6 +23,7 @@ server.use(express.json());
 // ******************************** ROUTES ********************************
 
 server.use("/posts", postsRouter);
+server.use("/users", usersRouter);
 
 // ******************************** ERROR HANDLERS ********************************
 
