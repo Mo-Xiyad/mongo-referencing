@@ -132,6 +132,7 @@ const uploadImage = async (req, res, next) => {
   }
 };
 
+const likePost = async (req, res, next) => {};
 const postsHandler = {
   getPosts,
   createPosts,
@@ -139,5 +140,6 @@ const postsHandler = {
   updatePostsById,
   deletePostsById,
   uploadImage,
+  likePost,
 };
 export default postsHandler;

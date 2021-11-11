@@ -38,6 +38,12 @@ const postSchema = new Schema(
     comments: {
       type: [comment],
     },
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true, // adds and manage createdAt and updatedAt fields

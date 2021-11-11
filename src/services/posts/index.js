@@ -30,4 +30,17 @@ router.put(
   Handler.uploadImage
 );
 
+// ******************************* COMMENTS ****************************
+
+router
+  .route("/:postId/comments")
+  .get(CommentHandler.getComments)
+  .post(CommentHandler.createComments);
+
+router
+  .route("/:postId/comments/:commentId")
+  .get(CommentHandler.getCommentsById)
+  .put(CommentHandler.updateCommentsById)
+  .delete(CommentHandler.deleteCommentsById);
+
 export default router;
