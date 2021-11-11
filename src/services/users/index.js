@@ -17,7 +17,7 @@ const cloudinaryStorage = new CloudinaryStorage({
 router.route("/").get(Handler.getUsers).post(Handler.createUsers);
 
 router
-  .route("/:postId")
+  .route("/:userId")
   .get(Handler.getUsersById)
   .put(Handler.updateUsersById)
   .delete(Handler.deleteUsersById);
