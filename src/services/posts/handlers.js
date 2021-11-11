@@ -1,6 +1,7 @@
 import PostModel from "../../models/postShema.js";
 import createHttpError from "http-errors";
 import q2m from "query-to-mongo";
+import UserModel from "../../models/userSchema.js";
 /*
 q2m translates something like /books?limit=5&sort=-price&offset=15&price<10&category=fantasy into something that could be directly usable by mongo like
 {
@@ -14,10 +15,13 @@ const getPosts = async (req, res, next) => {
     const mongoQuery = q2m(req.query);
     // console.log(mongoQuery);
     const totalPosts = await PostModel.countDocuments(mongoQuery.criteria);
+
     const post = await PostModel.find(mongoQuery.criteria)
       .limit(mongoQuery.options.limit)
       .skip(mongoQuery.options.skip)
-      .sort(mongoQuery.options.sort);
+      .sort(mongoQuery.options.sort)
+      .populate({ path: "author", select: "firstName lastName" });
+    // populate "path" should be same the FIELD that is in the referenced model
     if (post) {
       res.send({
         links: mongoQuery.links("/posts", totalPosts),

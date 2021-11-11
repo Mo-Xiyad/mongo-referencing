@@ -30,18 +30,9 @@ const postSchema = new Schema(
       },
     },
     author: {
-      type: Object,
+      type: Schema.Types.ObjectId,
       required: true,
-      nested: {
-        name: {
-          type: String,
-          required: true,
-        },
-        avatar: {
-          type: String,
-          required: true,
-        },
-      },
+      ref: "User",
     },
     content: { type: String },
     comments: {
