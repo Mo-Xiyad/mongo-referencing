@@ -18,6 +18,7 @@ const getComments = async (req, res, next) => {
     const post = await PostModel.findById(req.params.postId);
     if (post) {
       const postComments = await PostModel.aggregate([
+        // { $match: { _id: id } },
         {
           $project: {
             comments: 1,
@@ -31,10 +32,11 @@ const getComments = async (req, res, next) => {
             },
           },
         },
-        { $match: { _id: id } },
       ]);
+      const newComments = postComments.find((c) => c._id.toString() === id);
 
-      res.send({ postComments });
+      res.send({ newComments });
+
       // res.send({
       //   comments: post.comments,
       // });
