@@ -1,6 +1,7 @@
 import PostModel from "../../models/postShema.js";
 import createHttpError from "http-errors";
 import q2m from "query-to-mongo";
+import mongoose from "mongoose";
 import UserModel from "../../models/userSchema.js";
 /*
 q2m translates something like /books?limit=5&sort=-price&offset=15&price<10&category=fantasy into something that could be directly usable by mongo like
@@ -132,7 +133,35 @@ const uploadImage = async (req, res, next) => {
   }
 };
 
-const likePost = async (req, res, next) => {};
+const likePost = async (req, res, next) => {
+  try {
+    const id = req.params.postId;
+    const post = await PostModel.findById(id);
+    if (post) {
+      const liked = await PostModel.findOne({
+        _id: id,
+        likes: new mongoose.Types.ObjectId(req.body.userId),
+      });
+      if (!liked) {
+        await PostModel.findByIdAndUpdate(
+          id,
+          { $push: { likes: req.body.userId } },
+          { new: true }
+        );
+      } else {
+        await PostModel.findByIdAndUpdate(
+          id,
+          { $pull: { likes: req.body.userId } },
+          { new: true }
+        );
+      }
+    } else {
+      next(createHttpError(404, `User with id ${id} not found!`));
+    }
+    res.send(post);
+  } catch (error) {}
+};
+
 const postsHandler = {
   getPosts,
   createPosts,

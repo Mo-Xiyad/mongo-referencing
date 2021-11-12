@@ -14,11 +14,30 @@ const getComments = async (req, res, next) => {
   try {
     const mongoQuery = q2m(req.query);
     // console.log(mongoQuery);
+    const id = req.params.postId;
     const post = await PostModel.findById(req.params.postId);
     if (post) {
-      res.send({
-        comments: post.comments,
-      });
+      const postComments = await PostModel.aggregate([
+        {
+          $project: {
+            comments: 1,
+            _id: 1,
+            numberOfComments: {
+              $cond: {
+                if: { $isArray: "$comments" },
+                then: { $size: "$comments" },
+                else: "NA",
+              },
+            },
+          },
+        },
+        { $match: { _id: id } },
+      ]);
+
+      res.send({ postComments });
+      // res.send({
+      //   comments: post.comments,
+      // });
     } else {
       next(
         createHttpError(404, `Post with id ${req.params.postId} not found!`)

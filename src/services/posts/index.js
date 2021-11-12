@@ -30,6 +30,10 @@ router.put(
   Handler.uploadImage
 );
 
+// ******************************* LIKES ****************************
+
+router.route("/:postId/likes").put(Handler.likePost);
+
 // ******************************* COMMENTS ****************************
 
 router
